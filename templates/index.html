@@ -3,119 +3,202 @@
 {% block content %}
 
 <div class="page-header">
-    <h1>
-        Olá,
-        {% if name %}
-            {{ name }}!
-        {% else %}
-            Stranger!
-        {% endif %}
-    </h1>
 
-    <p>Prazer em conhecê-lo!</p>
+    <h1>Olá, {{ name }}!</h1>
+
+    {% if known %}
+        <p>Que bom vê-lo novamente!</p>
+    {% else %}
+        <p>Prazer em conhecê-lo!</p>
+    {% endif %}
+
+    {% if email_notice %}
+        <p>{{ email_notice }}</p>
+    {% endif %}
+
 </div>
 
-{% if message %}
-<div class="alert alert-{{ message_type }}" role="alert">
-    {{ message }}
+
+{% if page_message %}
+
+<div
+    class="alert alert-{{ page_message_type }}"
+    role="alert">
+
+    {{ page_message }}
+
 </div>
+
 {% endif %}
 
+
 <form method="POST">
+
     <div class="form-group">
-        <label for="username">What is your name?</label>
+
+        <label for="username">
+            Qual é o seu nome?
+        </label>
+
         <input
             type="text"
             class="form-control"
             id="username"
             name="username"
             required>
+
     </div>
 
-    <div class="form-group">
-        <label for="role_id">Role?:</label>
 
-        <select
-            class="form-control"
-            id="role_id"
-            name="role_id"
-            required>
-            {% for role in roles %}
-            <option value="{{ role.id }}">
-                {{ role.name }}
-            </option>
-            {% endfor %}
-        </select>
-    </div>
+    <div class="checkbox">
 
-    <div class="checkbox email-option">
         <label>
+
             <input
                 type="checkbox"
                 id="send_to_admin"
                 name="send_to_admin">
-            Enviar também um e-mail para flaskaulasweb@zohomail.com
+
+            Deseja enviar e-mail para
+            flaskaulasweb@zohomail.com?
+
         </label>
-        <p class="help-block">
-            O e-mail institucional da aluna receberá a mensagem em todos os cadastros.
-        </p>
+
     </div>
 
-    <button type="submit" class="btn btn-default">
+
+    <button
+        type="submit"
+        class="btn btn-default">
+
         Submit
+
     </button>
+
 </form>
 
-<h2>Relação de usuários cadastrados</h2>
-<h4>Quantidade: {{ user_count }}</h4>
+
+<h2>
+    Relação de usuários cadastrados
+</h2>
+
 
 <table class="table">
+
     <thead>
+
         <tr>
-            <th>Nome do usuário</th>
-            <th>Função</th>
+
+            <th>
+                Nome do usuário
+            </th>
+
+            <th>
+                Função
+            </th>
+
         </tr>
+
     </thead>
+
+
     <tbody>
+
         {% for user in users %}
+
         <tr>
-            <td>{{ user.username }}</td>
-            <td>{{ user.role.name }}</td>
+
+            <td>
+                {{ user.username }}
+            </td>
+
+            <td>
+                {{ user.role.name }}
+            </td>
+
         </tr>
+
         {% else %}
+
         <tr>
-            <td colspan="2">Nenhum usuário cadastrado.</td>
+
+            <td colspan="2">
+                Nenhum usuário cadastrado.
+            </td>
+
         </tr>
+
         {% endfor %}
+
     </tbody>
+
 </table>
 
-<h2>Relação de funções cadastradas</h2>
-<h4>Quantidade: {{ role_count }}</h4>
+
+<h2>
+    Relação de funções cadastradas
+</h2>
+
+
 <table class="table">
+
     <thead>
+
         <tr>
-            <th>Funções</th>
-            <th>Usuários</th>
+
+            <th>
+                Funções
+            </th>
+
+            <th>
+                Usuários
+            </th>
+
         </tr>
+
     </thead>
+
+
     <tbody>
+
         {% for role in roles %}
+
         <tr>
-            <td>{{ role.name }}</td>
+
             <td>
-                {% if role.users %}
-                <ol>
-                    {% for user in role.users %}
-                    <li>{{ user.username }}</li>
-                    {% endfor %}
-                </ol>
-                {% else %}
-                    Nenhum usuário cadastrado.
-                {% endif %}
+                {{ role.name }}
             </td>
+
+            <td>
+
+                {% if role.users %}
+
+                <ol>
+
+                    {% for user in role.users %}
+
+                    <li>
+                        {{ user.username }}
+                    </li>
+
+                    {% endfor %}
+
+                </ol>
+
+                {% else %}
+
+                    Nenhum usuário cadastrado.
+
+                {% endif %}
+
+            </td>
+
         </tr>
+
         {% endfor %}
+
     </tbody>
+
 </table>
+
 {% endblock %}
