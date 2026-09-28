@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <title>Novo usuário cadastrado</title>
+</head>
+<body>
+    <h2>Novo usuário cadastrado</h2>
+
+    <p>Um novo usuário foi cadastrado na aplicação Flask da Semana 11.A.</p>
+
+    <p><strong>Prontuário:</strong> {{ student_id }}</p>
+    <p><strong>Nome do aluno:</strong> {{ student_name }}</p>
+    <p><strong>Usuário cadastrado:</strong> {{ user.username }}</p>
+    <p><strong>Função:</strong> {{ user.role.name }}</p>
+
+    {% if sent_to_admin %}
+    <p><em>A opção de envio para flaskaulasweb@zohomail.com foi selecionada.</em></p>
+    {% endif %}
+</body>
+</html>
